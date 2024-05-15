@@ -53,3 +53,19 @@ if (Get-InstalledModule Microsoft.Graph.Beta) {
     }
 }
 Import-Module Microsoft.Graph.Beta
+
+# Install Power BI module
+Write-Host -ForegroundColor Gray "Installing Microsoft Power BI Powershell module..."
+if (Get-InstalledModule MicrosoftPowerBIMgmt) {
+    Update-Module MicrosoftPowerBIMgmt
+    Write-Host -ForegroundColor Green "Microsoft Power BI version $((Get-InstalledModule MicrosoftPowerBIMgmt).Version.ToString()) installed"
+} else {
+    try {
+        Install-Module MicrosoftPowerBIMgmt -Scope AllUsers -Force
+    }
+    catch {
+        Write-Host -ForegroundColor Red $_.message
+        exit
+    }
+}
+Import-Module MicrosoftPowerBIMgmt
